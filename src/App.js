@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+
+import React from 'react';
+import {Route, Switch, useHistory} from "react-router-dom";
+import {BaseLayout} from './layouts';
+import {Home, MovieDetails} from './pages';
 import './App.css';
+import {MovieSearch} from "./pages/movie-search/MovieSearch";
+
 
 function App() {
+const history = useHistory();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BaseLayout>
+        <Switch>
+            <Route path='/' exact>
+                <Home/>
+            </Route>
+
+            <Route path='/movie/:id'>
+                <MovieDetails/>
+            </Route>
+
+            <Route path='/search/movie' exact>
+                <MovieSearch/>
+            </Route>
+
+            <Route>
+                <h1>PAGE NOT FOUND
+                    <button onClick={() => history.push('/')}>go home</button>
+                </h1>
+            </Route>
+        </Switch>
+    </BaseLayout>
   );
 }
 
